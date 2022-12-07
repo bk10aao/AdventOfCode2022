@@ -2,3 +2,5 @@
 .idea/
 build/
 AdventOfCode2022.iml
+gradle/
+gradlew*
