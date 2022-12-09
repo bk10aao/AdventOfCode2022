@@ -10,6 +10,7 @@ public class DayThreeTest  {
     public void setup() {
         this.dayThree = new DayThree(input);
     }
+
     @Test
     public void givenInput_returnsScoreOf_157() {
         assertEquals(157, dayThree.partOne());
@@ -27,4 +28,3 @@ public class DayThreeTest  {
                                         "ttgJtRGJQctTZtZT\n" +
                                         "CrZsJsPPZsGzwwsLwLmpwMDw";
 }
-
