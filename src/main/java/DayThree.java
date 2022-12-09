@@ -15,9 +15,8 @@ public class DayThree {
             String b = line.substring(line.length() / 2);
             Map<String, Integer> matches = new HashMap<>();
 
-            for(char first : a.toCharArray()) {
+            for(char first : a.toCharArray())
                 matches.put(String.valueOf(first), 1);
-            }
             for (char second: b.toCharArray()) {
                 if(matches.containsKey(String.valueOf(second))) {
                     finalString += second;
@@ -32,61 +31,43 @@ public class DayThree {
         String finalString = "";
 
         for(int i = 0; i < values.size(); ) {
-            //rucksack one
             Map<String, Integer> sackValues = new HashMap<>();
             String firstRucksackOneLine = values.get(i++);
 
-            for(String s : firstRucksackOneLine.split("")) {
-                if(!sackValues.containsKey(s)) {
+            for(String s : firstRucksackOneLine.split(""))
+                if(!sackValues.containsKey(s))
                     sackValues.put(s, 1);
-                }
-            }
 
             String secondRucksackOneLine = values.get(i++);
 
-            for(String s : secondRucksackOneLine.split("")) {
-                if(sackValues.containsKey(s)) {
+            for(String s : secondRucksackOneLine.split(""))
+                if(sackValues.containsKey(s))
                     sackValues.put(s, 2);
-                }
-            }
+
             String thirdRucksackOneLine = values.get(i++);
 
-            for(String s : thirdRucksackOneLine.split("")) {
-                if(sackValues.containsKey(s)) {
+            for(String s : thirdRucksackOneLine.split(""))
+                if(sackValues.containsKey(s))
                     if(sackValues.get(s) == 2) {
                         finalString += s;
                         break;
                     }
-                }
-            }
 
-            //rucksack two
-
-            for(String key : sackValues.keySet()) {
+            for(String key : sackValues.keySet())
                 if (sackValues.get(key) == 3) {
                     finalString += key;
                     break;
-                }
-            }
-        }
-
-
+                }}
         return getResult(finalString);
     }
 
-
-
     private static int getResult(String end) {
         int result = 0;
-        for(char c : end.toCharArray()) {
-            if(Character.isLowerCase(c)) {
-                int temp = c - 96;
-                result += temp;
-            } else if (Character.isUpperCase(c)) {
-                int temp = c - 64;
-                result += (temp + 26);
-            }
-        }
+        for(char c : end.toCharArray())
+            if(Character.isLowerCase(c))
+                result += c - 96;
+            else if (Character.isUpperCase(c))
+                result += ((c - 64) + 26);
         return result;
     }
 

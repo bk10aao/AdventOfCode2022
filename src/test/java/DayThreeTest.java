@@ -11,16 +11,15 @@ public class DayThreeTest  {
     public void setup() {
         this.dayThree = new DayThree(input);
     }
+
     @Test
     public void givenInput_returnsScoreOf_157() {
-        int result = dayThree.partOne();
-        assertEquals(157, result );
+        assertEquals(157, dayThree.partOne());
     }
 
     @Test
     public void givenInput_returnsScoreOf_70() {
-        int result = dayThree.partTwo();
-        assertEquals(70, result);
+        assertEquals(70, dayThree.partTwo());
     }
 
     private static final String input = "vJrwpWtwJgWrhcsFMMfFFhFp\n" +

@@ -21,6 +21,7 @@ public class DayTwoTest {
     public void givenInput_returnsScoreOf_12() {
         assertEquals(12, dayTwo.partTwo());
     }
+
     private static final String input = "A Y\n" +
                                         "B X\n" +
                                         "C Z";

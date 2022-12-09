@@ -5,7 +5,10 @@ public class DayTwo {
     List<Character> playerOne = new ArrayList<Character>();
     List<Character> playerTwo = new ArrayList<Character>();
 
-    private int playerScore;
+    private static final int ROCK = 1, PAPER = 2, SCISSORS = 3;
+
+    private static final int LOSE = 1, DRAW = 2, WIN = 3;
+    private int playerScore = 0;
 
     public DayTwo(String input) {
         for (String line : input.split("\n")) {
@@ -16,146 +19,98 @@ public class DayTwo {
     }
 
     public int partOne() {
-        playerScore = 0;
         for(int i = 0; i < playerOne.size(); i++) {
             int choiceOpponent = playerOne.get(i);
             int choicePlayer = playerTwo.get(i);
-
-            if(choiceOpponent == choicePlayer) {
+            if(choiceOpponent == choicePlayer)
                 playerScore += choicePlayer + 3;
-            } else {
-                play(choiceOpponent, choicePlayer);}
-            }
+            else
+                play(choiceOpponent, choicePlayer);
+        }
         return playerScore;
     }
-    private static final int ROCK = 1;
-    private static final int PAPER = 2;
-    private static final int SCISSORS = 3;
+
     public int partTwo() {
-        //x lose 0, y draw 3, z win 6
-        //1 rock, 2 paper, 3 scissors
-        playerScore = 0;
         for(int i = 0; i < playerOne.size(); i++) {
             int opponentValue = getChoiceByCharPlayer(playerOne.get(i));
             int playerWinDrawLossChoice = getChoiceByCharPlayer(playerTwo.get(i));
 
-            if(playerWinDrawLossChoice == 1) { //lose
+            if(playerWinDrawLossChoice == LOSE)
                 playerScore += getLossScore(opponentValue);
-            } else if (playerWinDrawLossChoice == 2) { //draw
+            else if (playerWinDrawLossChoice == DRAW)
                 playerScore += getDrawValue(opponentValue);
-            } else if (playerWinDrawLossChoice == 3) { //draw
+            else if (playerWinDrawLossChoice == WIN)
                 playerScore += getWinValue(opponentValue);
-            }
         }
         return playerScore;
-    }
-
-    private int getWinValue(int opponentValue) {
-        if(opponentValue == ROCK) {
-            return PAPER+ 6;
-        } else if(opponentValue == PAPER) {
-            return SCISSORS + 6;
-        } else if(opponentValue == SCISSORS) {
-            return ROCK + 6;
-        } else {
-            return -1; //no match
-        }
-    }
-
-    private int getDrawValue(int opponentValue) {
-        if(opponentValue == 1) {
-            return ROCK + 3;
-        } if(opponentValue == 2) {
-            return PAPER + 3;
-        } if(opponentValue == 3) {
-            return SCISSORS + 3;
-        }
-        return -1;
-    }
-
-    private int getLossScore(int opponentValue) {
-        if(opponentValue == ROCK) {
-            return SCISSORS;
-        } else if(opponentValue == SCISSORS) {
-            return PAPER;
-        } else if (opponentValue == PAPER) {
-            return ROCK;
-        } else {
-            return -1; //no match
-        }
-    }
-
-    private int draw(int player) {
-        if(player == 1) {
-            return ROCK;
-        } else if (player == 2) {
-            return PAPER;
-        } else if (player == 3) {
-            return SCISSORS;
-        } else {
-            return -1; //no match
-        }
-    }
-
-    private int win(int player) {
-        if(player == 1) {
-            return 1 + 6;
-        } else if (player == 2) {
-            return 2 + 6;
-        } else {
-            return 3 + 6;
-        }
-    }
-
-    private int lose(int player) {
-        if(player == 1) {
-            return 1;
-        } else if (player == 2) {
-            return 2;
-        } else {
-            return 3;
-        }
     }
 
     private void play(int choiceOpponent, int choicePlayer) {
         int playerChar = getChoiceByCharPlayer(choicePlayer);
         int opponentChar = getChoiceByCharPlayer(choiceOpponent);
-        if(playerChar == 1) {
-            if(opponentChar == 2) {
+        if(playerChar == ROCK)
+            if(opponentChar == PAPER)
                 playerScore += playerChar;
-            } else if (opponentChar == 3) {
-                playerScore += 1 + 6;
-            } else {
-                playerScore += 3 + 1;
-            }
-        } else if(playerChar == 2) {
-            if(opponentChar == 3) {
+            else if (opponentChar == SCISSORS)
+                playerScore += ROCK + 6;
+            else
+                playerScore += SCISSORS + 1;
+        else if(playerChar == PAPER)
+            if(opponentChar == SCISSORS)
                 playerScore += playerChar;
-            } else if (opponentChar == 1) {
-                playerScore += 2 + 6;
-            } else {
-                playerScore += 3 + 2;
-            }
-        } else if(playerChar == 3) {
-            if(opponentChar == 1) {
+            else if (opponentChar == ROCK)
+                playerScore += PAPER + 6;
+            else
+                playerScore += SCISSORS + 2;
+        else if(playerChar == SCISSORS)
+            if(opponentChar == ROCK)
                 playerScore += playerChar;
-            } else if (opponentChar == 2) {
-                playerScore += 3 + 6;
-            } else {
-                playerScore += 3 + 3;
-            }
-        }
+            else if (opponentChar == PAPER)
+                playerScore += SCISSORS + 6;
+            else
+                playerScore += SCISSORS + 3;
+    }
+
+    private int getWinValue(int opponentValue) {
+        if(opponentValue == ROCK)
+            return PAPER+ 6;
+        else if(opponentValue == PAPER)
+            return SCISSORS + 6;
+        else if(opponentValue == SCISSORS)
+            return ROCK + 6;
+        else
+            return -1; //no match
+    }
+
+    private int getDrawValue(int opponentValue) {
+        if(opponentValue == ROCK)
+            return ROCK + 3;
+        if(opponentValue == PAPER)
+            return PAPER + 3;
+        if(opponentValue == SCISSORS)
+            return SCISSORS + 3;
+        return -1;
+    }
+
+    private int getLossScore(int opponentValue) {
+        if(opponentValue == ROCK)
+            return SCISSORS;
+        else if(opponentValue == SCISSORS)
+            return PAPER;
+        else if (opponentValue == PAPER)
+            return ROCK;
+        else
+            return -1; //no match
     }
 
     private int getChoiceByCharPlayer(int checkChar) {
-        if(checkChar == 65 || checkChar == 88) {
-            return 1;
-        } if (checkChar == 66 || checkChar == 89) {
-            return 2;
-        } if (checkChar == 67 || checkChar == 90) {
-            return 3;
-        }
-        return -1;
+        if(checkChar == 65 || checkChar == 88)
+            return ROCK;
+        else if (checkChar == 66 || checkChar == 89)
+            return PAPER;
+        else if (checkChar == 67 || checkChar == 90)
+            return SCISSORS;
+        return -1; //not found
     }
 
     public static void main(String[] args) {

@@ -7,21 +7,17 @@ public class DayOne {
 
     private List<Integer> totalPoints = new ArrayList<Integer>();
     public int partOne(String input) {
-
         int highestScore = Integer.MIN_VALUE;
 
         String[] split = input.split("\n\n");
 
         for(String block : split) {
             int[] numbers = Arrays.stream(block.split("\n")).mapToInt(Integer::parseInt).toArray();
-
             int sum =  Arrays.stream(numbers).sum();
             totalPoints.add(sum);
-            if(sum > highestScore) {
+            if(sum > highestScore)
                 highestScore = sum;
-            }
         }
-
         return highestScore;
     }
 
