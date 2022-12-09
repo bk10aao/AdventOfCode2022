@@ -28,6 +28,5 @@ public class DayThreeTest  {
                                         "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\n" +
                                         "ttgJtRGJQctTZtZT\n" +
                                         "CrZsJsPPZsGzwwsLwLmpwMDw";
-
 }
 
