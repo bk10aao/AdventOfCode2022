@@ -22,7 +22,7 @@ public class DayFourTest {
         assertEquals(4, dayFour.partTwo(input));
     }
 
-    private String input =  "2-4,6-8\n" +
+    private static final String input =  "2-4,6-8\n" +
                             "2-3,4-5\n" +
                             "5-7,7-9\n" +
                             "2-8,3-7\n" +

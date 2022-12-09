@@ -1,7 +1,5 @@
-import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class DayOneTest {
 
@@ -14,10 +12,8 @@ public class DayOneTest {
 
     @Test
     public void givenInput_returns_topThreeSumOf_45000() {
-        int sumOne = dayOne.partOne(input);
-        assertEquals(24000, sumOne);
-        int sumTwo = dayOne.partTwo();
-        assertEquals(45000, sumTwo);
+        assertEquals(24000, dayOne.partOne(input));
+        assertEquals(45000, dayOne.partTwo());
     }
 
     private static final String input = "1000\n" +
