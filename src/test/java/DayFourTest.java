@@ -1,4 +1,3 @@
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +11,7 @@ public class DayFourTest {
     public void setup() {
         this.dayFour = new DayFour();
     }
+
     @Test
     public void givenInput_returnsNestedCountOf_two() {
         assertEquals(2, dayFour.partOne(input));
@@ -28,5 +28,4 @@ public class DayFourTest {
                             "2-8,3-7\n" +
                             "6-6,4-6\n" +
                             "2-6,4-8";
-
 }

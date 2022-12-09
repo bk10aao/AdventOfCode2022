@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class DayFour {
 
     public int partOne(String input) {
@@ -16,11 +12,10 @@ public class DayFour {
             int fromSecond = Integer.parseInt(toValues[0]);
             int toSecond = Integer.parseInt(toValues[1]);
 
-            if(fromFirst >= fromSecond && toFirst <= toSecond) {
+            if(fromFirst >= fromSecond && toFirst <= toSecond)
                 validCount++;
-            } else if(fromSecond >= fromFirst && toSecond <= toFirst) {
+            else if(fromSecond >= fromFirst && toSecond <= toFirst)
                 validCount++;
-            }
         }
         return validCount;
     }
@@ -37,15 +32,12 @@ public class DayFour {
             int fromSecondLower = Integer.parseInt(toValues[0]);//sec 2 lower
             int toSecondUpper = Integer.parseInt(toValues[1]);//sec 2 upper
 
-
             if((fromFirstLower <= fromSecondLower && toFirstUpper >= fromSecondLower) || (fromFirstLower <= toSecondUpper && toFirstUpper >= toSecondUpper))
                 validCount++;
             else if((fromSecondLower <= fromFirstLower && toSecondUpper >= fromFirstLower) || (fromSecondLower <= toFirstUpper && toSecondUpper >= toFirstUpper))
                 validCount++;
-
         }
         return validCount;
-
     }
 
     public static void main(String[] args) {
