@@ -1,3 +1,5 @@
+import com.sun.jdi.CharType;
+
 import java.util.*;
 
 public class DayFive {
@@ -6,14 +8,9 @@ public class DayFive {
     List<List<Integer>> moves = new ArrayList<>();
 
     public DayFive(String data) {
-        List<String> input = new ArrayList<>();
-        String[] lines = data.split("\n");
-
-        for(String x: lines) {
-            input.add(x);
-        }
-
-        for(int i = 0; i <= 9; i++)
+        List<String> input = Arrays.asList(data.split("\n"));
+        List<List<Character>> stacks = new ArrayList<>();
+        for(int i = 0; i < 9; i++)
             stacks.add(new ArrayList<>());
         List<String> stacksInput = input.subList(0, 8);
         for(String s : stacksInput)
@@ -22,66 +19,102 @@ public class DayFive {
             int strIndex2 = 0;
             while(strIndex2 < s.length())
             {
-                if(s.charAt(strIndex2) != ' ' && s.charAt(strIndex2) != 111 && s.charAt(strIndex2) != 'o')
+                if(s.charAt(strIndex2) != ' ')
                     stacks.get(index).add(0, s.charAt(strIndex2 + 1));
                 index++;
                 strIndex2 += 4;
             }
         }
 
-        String actions = data.split("\n\n")[1];
-        System.out.println(data);
-        for(String s : actions.split("\n")) {
-            String[] moveValues = s.split(" ");
-            List<Integer> values = new ArrayList<>();
-            if(moveValues.length == 0) {
-                continue;
-            }
-            values.add(Integer.parseInt(moveValues[1]));
-            values.add(Integer.parseInt(moveValues[3]));
-            values.add(Integer.parseInt(moveValues[5]));
-            moves.add(values);
+        List<List<Character>> copy = new ArrayList<>();
+        for(int i = 0; i < 9; i++)
+            copy.add(new ArrayList<>(stacks.get(i)));
 
+        List<String> instructions = input.subList(10, input.size());
+        for(String i : instructions)
+        {
+            //Part 1
+            String[] parts = i.split(" ");
+            int toMove = Integer.parseInt(parts[1]);
+            int from = Integer.parseInt(parts[3]) - 1;
+            int to = Integer.parseInt(parts[5]) - 1;
+            List<Character> fromStack = stacks.get(from);
+            List<Character> toStack = stacks.get(to);
+            List<Character> moving = new ArrayList<>();
+            for(int j = 0; j < toMove; j++)
+                moving.add(fromStack.remove(fromStack.size() - 1));
+            toStack.addAll(moving);
+
+            //Part 2
+            fromStack = copy.get(from);
+            toStack = copy.get(to);
+            moving = new ArrayList<>();
+            for(int j = 0; j < toMove; j++)
+                moving.add(0, fromStack.remove(fromStack.size() - 1));
+            toStack.addAll(moving);
         }
-        System.out.println(1);
+        StringBuilder str = new StringBuilder();
+        for(List<Character> stack : stacks)
+            str.append(stack.get(stack.size() - 1));
+        System.out.println(str);
+        str = new StringBuilder();
+        for(List<Character> stack : copy)
+            str.append(stack.get(stack.size() - 1));
+        System.out.println(str);
     }
+//
+//    public String partOne() {
+//        for(List<Integer> s : moves) {
+//            System.out.println(moves);
+//            int count = s.get(0);
+//            int from = s.get(1);
+//            int to = s.get(2);
+//            System.out.printf("move %d from %d to %d\n", count, from, to);
+//
+//            List<Character> startColumn = stacks.get(from - 1);
+//            List<Character> moveList = new ArrayList<>();
+//            for(int c = startColumn.size() - count; c < startColumn.size(); c++) {
+//                if(c > startColumn.size() - 1) {
+//                    break;
+//                }
+//                moveList.add(startColumn.get(c));
+//            }
+//
+//            startColumn.removeAll(moveList);
+//
+//            List<Character> reversed = new ArrayList<>();
+//            for(int i = moveList.size() - 1; i >= 0; i--) {
+//                reversed.add(moveList.get(i));
+//            }
+//
+//            List<Character> toColumn = stacks.get(to - 1);
+//            toColumn.addAll(reversed);
+//            stacks.set(to - 1, toColumn);
+//            System.out.println(1234);
+//
+//        }
+//
+//        String result = "";
+//        for(List<Character> stack : stacks) {
+//            try {
+//                result += stack.get(stack.size() - 1);
+//            } catch(Exception e) {
+//                //do nothing
+//            }
+//        }
+//        return result;
+//    }
 
-    public String partOne() {
-        for (List<Integer> move : moves) {
-            int moveCount = move.get(0);
-            int fromColumn = move.get(1);
-            int toColumn = move.get(2);
-
-            for (int i = 0; i < moveCount; i++) {
-                List<Character> moveValue = stacks.get(fromColumn - 1);
-                char moveChar = moveValue.get(moveValue.size() - 1);
-                List<Character> updatedOriginalList = stacks.get(fromColumn - 1);
-                updatedOriginalList = updatedOriginalList.subList(0, updatedOriginalList.size() - 1);
-                stacks.set(fromColumn - 1, updatedOriginalList);
-                stacks.get(toColumn - 1).add(moveChar);
-
-            }
-        }
-        String result = "";
-        for(List<Character> list : stacks) {
-            if(list.size() != 0) {
-                result += list.get(list.size() - 1);
-            }
-        }
-        return result;
-    }
-
-    public String partTwo() {
-
-
-        return "result";
-    }
+//    public String partTwo() {
+//
+//
+//        return "result";
+//    }
 
     public static void main(String[] args) {
         DayFive dayFive = new DayFive(input);
-        System.out.println(dayFive.partOne());
-        dayFive = new DayFive(input);
-        System.out.println(dayFive.partTwo());
+//        dayFive = new DayFive(input);
+//        System.out.println(dayFive.partTwo());
     }
 
     private static final String input = "                        [R] [J] [W]\n" +
